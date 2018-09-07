@@ -1,0 +1,13 @@
+##############################
+## Folders                  ##
+##############################
+target
+ 
+##############################
+## Netbeans conf            ##
+##############################
+nb-configuration.xml
+nbactions.xml
+.settings
+.project
+.classpath
