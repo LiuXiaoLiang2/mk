@@ -30,7 +30,7 @@ import com.rongdu.cashloan.core.domain.UserBaseInfo;
 import com.rongdu.cashloan.core.service.UserBaseInfoService;
 
 /**
- * 登录相关controller
+ * 登录相关controller测试gitHub
  */
 @Scope("prototype")
 @Controller
