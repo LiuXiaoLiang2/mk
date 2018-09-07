@@ -27,7 +27,7 @@ import com.rongdu.cashloan.core.service.UserBaseInfoService;
 import tool.util.DateUtil;
 
  /**
- * 短信记录Controller
+ * 短信记录Controller测试2
  * 
  */
 @Scope("prototype")
