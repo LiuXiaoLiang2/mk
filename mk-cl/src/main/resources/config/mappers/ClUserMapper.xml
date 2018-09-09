@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- cl_user表:用户表模块 -->
+<mapper namespace="com.rongdu.cashloan.cl.mapper.ClUserMapper">
+    <!--返回Map-->        
+    <resultMap id="BaseResultMap" type="com.rongdu.cashloan.cl.domain.ClUser">
+        <id column="id" property="id" jdbcType="BIGINT" />
+        <result column="uuid" property="uuid" jdbcType="VARCHAR" />
+        <result column="login_name" property="loginName" jdbcType="VARCHAR" />
+        <result column="login_pwd" property="loginPwd" jdbcType="VARCHAR" />
+        <result column="loginpwd_modify_time" property="loginpwdModifyTime" jdbcType="TIMESTAMP" />
+        <result column="regist_time" property="registTime" jdbcType="TIMESTAMP" />
+        <result column="register_client" property="registerClient" jdbcType="VARCHAR" />
+        <result column="invitation_code" property="invitationCode" jdbcType="VARCHAR" />
+        <result column="channel_id" property="channelId" jdbcType="BIGINT" />
+        <result column="level" property="level" jdbcType="VARCHAR" />
+        <result column="login_time" property="loginTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+    
+    <!--基本的sql查询字段 公共引用...-->
+    <sql id="Base_Column_List">
+        id,uuid,login_name,login_pwd,loginpwd_modify_time,regist_time,register_client,invitation_code,channel_id,level,login_time 
+    </sql>
+    
+    <!-- 基本的sql查询条件公共引用 -->
+    <sql id="searchBy">
+        <trim prefix="where" prefixOverrides="and|or">
+            <if test=" id != null and id != '' ">
+                id  = #{id,jdbcType=BIGINT}
+            </if>
+            <if test="uuid != null and uuid != '' ">
+                and uuid = #{uuid,jdbcType=VARCHAR}
+            </if>
+            <if test="loginName != null and loginName != '' ">
+                and login_name = #{loginName,jdbcType=VARCHAR}
+            </if>
+            <if test="loginPwd != null and loginPwd != '' ">
+                and login_pwd = #{loginPwd,jdbcType=VARCHAR}
+            </if>
+            <if test="loginpwdModifyTime != null">
+                and loginpwd_modify_time = #{loginpwdModifyTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="registTime != null">
+                and regist_time = #{registTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="registerClient != null and registerClient != '' ">
+                and register_client = #{registerClient,jdbcType=VARCHAR}
+            </if>
+            <if test="invitationCode != null and invitationCode != '' ">
+                and invitation_code = #{invitationCode,jdbcType=VARCHAR}
+            </if>
+            <if test="channelId != null and channelId != '' ">
+                and channel_id = #{channelId,jdbcType=BIGINT}
+            </if>
+            <if test="level != null and level != '' ">
+                and level = #{level,jdbcType=VARCHAR}
+            </if>
+            <if test="loginTime != null">
+                and login_time = #{loginTime,jdbcType=TIMESTAMP}
+            </if>
+        </trim>
+    </sql>
+    
+    
+    <insert id="save" parameterType="com.rongdu.cashloan.cl.domain.ClUser">
+        insert into cl_user(uuid,login_name,login_pwd,loginpwd_modify_time,regist_time,register_client,invitation_code,channel_id,level,login_time)values(#{uuid,jdbcType=VARCHAR},#{loginName,jdbcType=VARCHAR},#{loginPwd,jdbcType=VARCHAR},#{loginpwdModifyTime,jdbcType=TIMESTAMP},#{registTime,jdbcType=TIMESTAMP},#{registerClient,jdbcType=VARCHAR},#{invitationCode,jdbcType=VARCHAR},#{channelId,jdbcType=BIGINT},#{level,jdbcType=VARCHAR},#{loginTime,jdbcType=TIMESTAMP})
+    </insert>
+
+    
+    <update id="update" parameterType="com.rongdu.cashloan.cl.domain.ClUser">
+        update cl_user set 
+            uuid = #{uuid,jdbcType=VARCHAR},
+            login_name = #{loginName,jdbcType=VARCHAR},
+            login_pwd = #{loginPwd,jdbcType=VARCHAR},
+            loginpwd_modify_time = #{loginpwdModifyTime,jdbcType=TIMESTAMP},
+            regist_time = #{registTime,jdbcType=TIMESTAMP},
+            register_client = #{registerClient,jdbcType=VARCHAR},
+            invitation_code = #{invitationCode,jdbcType=VARCHAR},
+            channel_id = #{channelId,jdbcType=BIGINT},
+            level = #{level,jdbcType=VARCHAR},
+            login_time = #{loginTime,jdbcType=TIMESTAMP}
+        where id = #{id ,jdbcType=INTEGER}
+    </update>
+
+
+    <update id="updateSelective"  parameterType="java.util.HashMap">
+        update cl_user
+          <set>
+            <if test="uuid != null and uuid != '' ">        
+                uuid = #{uuid,jdbcType=VARCHAR},                
+            </if>
+            <if test="loginName != null and loginName != '' ">        
+                login_name = #{loginName,jdbcType=VARCHAR},                
+            </if>
+            <if test="loginPwd != null and loginPwd != '' ">        
+                login_pwd = #{loginPwd,jdbcType=VARCHAR},                
+            </if>
+            <if test="loginpwdModifyTime != null">
+                loginpwd_modify_time = #{loginpwdModifyTime,jdbcType=TIMESTAMP},                
+            </if>
+            <if test="registTime != null">
+                regist_time = #{registTime,jdbcType=TIMESTAMP},                
+            </if>
+            <if test="registerClient != null and registerClient != '' ">        
+                register_client = #{registerClient,jdbcType=VARCHAR},                
+            </if>
+            <if test="invitationCode != null and invitationCode != '' ">        
+                invitation_code = #{invitationCode,jdbcType=VARCHAR},                
+            </if>
+            <if test="channelId != null and channelId != '' ">        
+                channel_id = #{channelId,jdbcType=BIGINT},                
+            </if>
+            <if test="level != null and level != '' ">        
+                level = #{level,jdbcType=VARCHAR},                
+            </if>
+            <if test="loginTime != null">
+                login_time = #{loginTime,jdbcType=TIMESTAMP}                
+            </if>
+        </set>    
+        where id = #{id ,jdbcType=INTEGER}
+    </update>
+
+
+    <select id="findByPrimary" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List" />
+        from cl_user
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+	<select id="findSelective" resultMap="BaseResultMap" parameterType="java.util.HashMap">
+        select
+        <include refid="Base_Column_List" />
+        from cl_user
+        <include refid="searchBy"/>
+    </select>
+               
+    <select id="listSelective" resultMap="BaseResultMap" parameterType="java.util.HashMap">
+        select
+        <include refid="Base_Column_List" />
+        from cl_user
+        <include refid="searchBy"/>
+    </select>
+    
+</mapper>
